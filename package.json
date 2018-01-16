@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cleaver index.md",
-    "start": "watch 'npm run build' .",
-    "serve": "http-server -p 9090",
+    "serve": "http-server ./public -p 9090",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d ."
   },
@@ -15,8 +14,7 @@
   "devDependencies": {
     "cleaver": "^0.8.7",
     "gh-pages": "^1.1.0",
-    "http-server": "^0.11.1",
-    "watch": "^1.0.2"
+    "http-server": "^0.11.1"
   },
   "dependencies": {},
   "repository": {
