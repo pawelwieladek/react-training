@@ -1,0 +1,1308 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>React Trainging</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.slide {
+    position: static;
+    background-color: #fff;
+}
+
+.progress {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 3px;
+    width: 0;
+    background-color: #44a4dd;
+    -webkit-transition: width .15s ease-out;
+    -moz-transition: width .15s ease-out;
+    -o-transition: width .15s ease-out;
+    transition: width .15s ease-out;
+}
+
+.slide-content {
+    width: 1000px;
+    height: auto;
+    overflow: visible;
+    padding: 30px;
+    margin: 0 auto;
+    font-size: 170%;
+}
+
+body {
+    padding: 0;
+}
+
+h3 {
+    border-bottom: none;
+}
+
+p, h4 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+ul {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+li > ul {
+    padding-top: 0 !important;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+code {
+    color: #a71d5d;
+}
+
+pre {
+    font-size: 90%;
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+pre > code {
+    color: inherit;
+}
+
+/**
+ * GitHub Gist Theme
+ * Author : Louis Barranqueiro - https://github.com/LouisBarranqueiro
+ */
+
+.hljs {
+    display: block;
+    background: white;
+    padding: 0.5em;
+    color: #333333;
+    overflow-x: auto;
+}
+
+.hljs-comment,
+.hljs-meta {
+    color: #969896;
+}
+
+.hljs-string,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-strong,
+.hljs-emphasis,
+.hljs-quote {
+    color: #df5000;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+    color: #a71d5d;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-attribute {
+    color: #0086b3;
+}
+
+.hljs-section,
+.hljs-name {
+    color: #63a35c;
+}
+
+.hljs-tag {
+    color: #333333;
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+    color: #795da3;
+}
+
+.hljs-addition {
+    color: #55a532;
+    background-color: #eaffea;
+}
+
+.hljs-deletion {
+    color: #bd2c00;
+    background-color: #ffecec;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide -" id="slide-1">
+    <section class="slide-content"><h1 id="react-training">React Training</h1>
+<p><img src="images/react-logo.png" width="200" /></p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-2">
+    <section class="slide-content"><h1 id="part-1-es6">Part 1. ES6</h1>
+<p><img src="images/js-logo.png" width="200" /></p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-3">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+<pre><code class="lang-js"><span class="hljs-comment">// hoisted</span>
+<span class="hljs-keyword">var</span> a;
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// block-scoped</span>
+<span class="hljs-keyword">let</span> b;
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// block-scoped</span>
+<span class="hljs-keyword">const</span> b;
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-4">
+    <section class="slide-content"><h1 id="part-2-react">Part 2. React</h1>
+<p><img src="images/react-logo.png" width="200" /></p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-5">
+    <section class="slide-content"><h3 id="hello-world-">Hello, World!</h3>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"root"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>,
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'root'</span>)
+);
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-6">
+    <section class="slide-content"><h3 id="jsx-syntax">JSX syntax</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"greeting"</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> element = React.createElement(
+  <span class="hljs-string">'h1'</span>,
+  { <span class="hljs-attr">className</span>: <span class="hljs-string">'greeting'</span> },
+  <span class="hljs-string">'Hello, world!'</span>
+);
+</code></pre>
+<h4 id="separation-of-conerns">Separation of conerns</h4>
+<p>Separate logic units instead of technologies.</p>
+<h4 id="jsx-is-a-function-call">JSX is a function call</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// preact example</span>
+<span class="hljs-keyword">const</span> element = h(<span class="hljs-string">'h1'</span>, <span class="hljs-string">'Hello, world!'</span>);
+</code></pre>
+<h4 id="attributes">Attributes</h4>
+<h5 id="string">string</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"container"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<h5 id="boolean">boolean</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+// default true
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{false}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+<h5 id="number">number</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">{6}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+</code></pre>
+<h5 id="function">function</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span> /&gt;</span>
+</code></pre>
+<h5 id="any-js-expression">any JS expression</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{2+2}</span> /&gt;</span>
+</code></pre>
+<h5 id="self-closing-tag">self-closing tag</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> /&gt;</span>
+</code></pre>
+<h5 id="children">children</h5>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Paragraph 1<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Paragraph 2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<h5 id="spread-operator">spread operator</h5>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> props = {
+  title,
+  onClick
+};
+
+<span class="hljs-keyword">const</span> foo1 = &lt;Component {...props} /&gt;
+// is equal to
+const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
+</code></pre>
+<h4 id="jsx-prevents-injection-attacks">JSX Prevents Injection Attacks</h4>
+<p>By default, React DOM escapes any values embedded in JSX before rendering them.</p>
+<pre><code class="lang-js">&lt;Header greeting={<span class="hljs-string">'&lt;3'</span>} /&gt;
+<span class="hljs-comment">// is equal to</span>
+&lt;Header greeting=<span class="hljs-string">"&amp;lt;3"</span> /&gt;
+</code></pre>
+<h4 id="expression-as-children">Expression as children</h4>
+<pre><code class="lang-jsx">&lt;ul&gt;
+  {items.map((item) =&gt; &lt;li key={item}&gt;{item}&lt;/li&gt;)}
+&lt;/ul&gt;
+</code></pre>
+<h4 id="function-as-children">Function as children</h4>
+<pre><code class="lang-jsx">&lt;ul&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Repeat</span> <span class="hljs-attr">times</span>=<span class="hljs-string">{3}</span>&gt;</span>
+    {(index) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{index}</span>&gt;</span>{index}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Repeat</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/ul&gt;</span>
+</code></pre>
+<h4 id="booleans-null-and-undefined-are-ignored">Booleans, Null, and Undefined Are Ignored</h4>
+<pre><code class="lang-js">&lt;div /&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;div&gt;{false}&lt;/div&gt;
+
+&lt;div&gt;{null}&lt;/div&gt;
+
+&lt;div&gt;{undefined}&lt;/div&gt;
+
+&lt;div&gt;{true}&lt;/div&gt;
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-7">
+    <section class="slide-content"><h3 id="props">Props</h3>
+<ul>
+<li><p><code>props</code> are <strong>input data</strong>.</p>
+</li>
+<li><p><code>props</code> are <strong>read-only</strong>.</p>
+</li>
+<li><p>Components are <strong>independent, reusable pieces</strong>.</p>
+</li>
+</ul>
+<h4 id="component-as-a-class">Component as a class</h4>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+  }
+}
+</code></pre>
+<h4 id="component-as-a-function">Component as a function</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Header</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+}
+</code></pre>
+<h4 id="extraction">Extraction</h4>
+<p>Split large piece of functionality into smaller components.</p>
+<p>@todo: obrazek</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-8">
+    <section class="slide-content"><h3 id="state">State</h3>
+<ul>
+<li><p>Component must act like a <strong>pure function</strong>.</p>
+</li>
+<li><p>UI is dynamic and <strong>changes over time</strong>.</p>
+</li>
+<li><p>Component can have its own <strong>state</strong> to reflect the changes.</p>
+</li>
+<li><p>Component <strong>change state only by</strong> <code>setState()</code> function</p>
+</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.increment = <span class="hljs-keyword">this</span>.increment.bind(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">this</span>.state = {
+        <span class="hljs-attr">count</span>: <span class="hljs-number">5</span>
+    };
+  }
+
+  increment() {
+    <span class="hljs-keyword">this</span>.setState({
+        <span class="hljs-attr">count</span>: <span class="hljs-keyword">this</span>.state.count + <span class="hljs-number">1</span>
+    });
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.increment}</span>&gt;</span>{this.state.count}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+    );
+  }
+});
+</code></pre>
+<h4 id="binding">Binding</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">this</span>.increment = <span class="hljs-keyword">this</span>.increment.bind(<span class="hljs-keyword">this</span>);
+</code></pre>
+<h4 id="the-smallest-representaion-possible">The smallest representaion possible</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// bad practice</span>
+<span class="hljs-keyword">this</span>.setState({
+  <span class="hljs-attr">firstName</span>: firstName,
+  <span class="hljs-attr">lastName</span>: lastName,
+  <span class="hljs-attr">fullName</span>: <span class="hljs-string">`<span class="hljs-subst">${firstName}</span> <span class="hljs-subst">${lastName}</span>`</span>
+});
+
+<span class="hljs-comment">// instead modify in render</span>
+render() {
+  <span class="hljs-keyword">let</span> fullName = <span class="hljs-string">`<span class="hljs-subst">${firstName}</span> <span class="hljs-subst">${lastName}</span>`</span>;
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{fullName}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  );
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-9">
+    <section class="slide-content"><h3 id="events">Events</h3>
+<p>// komponent rodzic i dziecko</p>
+<h4 id="syntheticevent">SyntheticEvent</h4>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-10">
+    <section class="slide-content"><h3 id="data-flow">Data flow</h3>
+<ul>
+<li>Components contains components forming a <strong>tree</strong>.</li>
+<li>Components pass data from the <strong>top to the bottom</strong>.</li>
+</ul>
+<p>@todo: obrazek</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-11">
+    <section class="slide-content"><h3 id="virtual-dom">Virtual DOM</h3>
+<ul>
+<li>Instead of manipulating DOM tree, React implements it&#39;s own tree of components</li>
+<li>React compares two component trees, finds changes and apply them on the DOM.</li>
+</ul>
+<p>@todo: obrazek</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-12">
+    <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-comment">// initial state</span>
+    <span class="hljs-keyword">this</span>.state = {};
+  }
+
+  <span class="hljs-keyword">static</span> defaultProps = {
+    <span class="hljs-attr">greeting</span>: <span class="hljs-string">'Hello'</span>
+  }
+
+  <span class="hljs-keyword">static</span> displayName = <span class="hljs-string">'Header'</span>;
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+  }
+}
+</code></pre>
+<blockquote>
+<p>Tip: <a href="https://babeljs.io/docs/plugins/transform-class-properties/">transform-class-properties</a> lets you use <code>static</code> keyword.</p>
+</blockquote>
+<h4 id="mounting">Mounting</h4>
+<ol>
+<li><code>constructor()</code></li>
+<li><code>componentWillMount()</code></li>
+<li><code>render()</code></li>
+<li><code>componentDidMount()</code></li>
+</ol>
+<h4 id="updating">Updating</h4>
+<ol>
+<li><code>componentWillReceiveProps()</code></li>
+<li><code>shouldComponentUpdate()</code></li>
+<li><code>componentWillUpdate()</code></li>
+<li><code>render()</code></li>
+<li><code>componentDidUpdate()</code></li>
+</ol>
+<h4 id="unmounting">Unmounting</h4>
+<ol>
+<li><code>componentWillUnmount()</code></li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-13">
+    <section class="slide-content"><h3 id="conditional-rendering">Conditional Rendering</h3>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.showLine = <span class="hljs-keyword">this</span>.showLine.bind(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">this</span>.state = {
+      <span class="hljs-attr">lineVisible</span>: <span class="hljs-literal">false</span>
+    };
+  }
+
+  showLine() {
+    <span class="hljs-keyword">this</span>.setState({
+      <span class="hljs-attr">lineVisible</span>: <span class="hljs-literal">true</span>
+    });
+  }
+
+  renderLine() {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.formEnabled) {
+      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>;
+    }
+  }
+
+  render() {
+    let line = this.renderLine();
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.showLine}</span>&gt;</span>Show line<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        {line}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-14">
+    <section class="slide-content"><h3 id="lists">Lists</h3>
+<p>Recall:</p>
+<ul>
+<li>JSX tag is a function call.</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {this.props.items.map(item =&gt; {
+          return <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{item.id}</span>&gt;</span>{item.text}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>;
+        })}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+    );
+  }
+}
+</code></pre>
+<h4 id="keys">Keys</h4>
+<ul>
+<li>Keys help React identify which items have changed</li>
+<li>Key has to be unique for the item among its siblings</li>
+</ul>
+<pre><code class="lang-js">// bad practice
+&lt;ul&gt;
+  {items.map((item, index) =&gt;
+    &lt;li key={index}&gt;{item.text}&lt;/li&gt;
+  )}
+&lt;/ul&gt;
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-15">
+    <section class="slide-content"><h3 id="composition">Composition</h3>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.handleChange = <span class="hljs-keyword">this</span>.handleChange.bind(<span class="hljs-keyword">this</span>);
+  }
+
+  handleChange(event) {
+    <span class="hljs-comment">// encapsulate &lt;input&gt; specific data structure</span>
+    <span class="hljs-keyword">this</span>.props.onChange(event.target.value);
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{this.props.value}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span>
+      /&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">const</span> largeClassName = <span class="hljs-keyword">this</span>.props.size === <span class="hljs-string">'large'</span> ? <span class="hljs-string">'btn-large'</span> : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">const</span> buttonClassNames = classNames(<span class="hljs-string">'btn'</span>, largeClassName);
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{buttonClassNames}</span>&gt;</span>{this.props.children}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+    );
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LargeButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> {<span class="hljs-attr">...props</span>} <span class="hljs-attr">size</span>=<span class="hljs-string">"large"</span> /&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-16">
+    <section class="slide-content"><h3 id="prop-types">Prop Types</h3>
+<p>Define component&#39;s API and validate input data.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">static</span> propTypes = {
+    <span class="hljs-attr">name</span>: PropTypes.string.isRequired,
+    <span class="hljs-attr">onClick</span>: PropTypes.func
+  }
+
+  <span class="hljs-keyword">static</span> defaultProps = {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">onClick</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}
+    };
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.onClick}</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    );
+  }
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-17">
+    <section class="slide-content"><h3 id="refs">Refs</h3>
+<ul>
+<li>Typically to modify a child, you <strong>re-render it with new props</strong>. </li>
+<li><strong>refs</strong> gives an access to a DOM node.</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  componentDidMount() {
+    <span class="hljs-comment">// once component is mounted, DOM node is present</span>
+    <span class="hljs-keyword">const</span> domNode = ReactDOM.findDOMNode(<span class="hljs-keyword">this</span>.refs.input);
+    $.fancyPlugin(domNode);
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"input"</span> /&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-18">
+    <section class="slide-content"><h3 id="style-and-classes">Style and classes</h3>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"btn btn-primary"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">color:</span> '<span class="hljs-attr">red</span>',
+        <span class="hljs-attr">padding:</span> <span class="hljs-attr">20</span>
+      }}&gt;</span>
+        Hello, world!
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+    );
+  }
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-19">
+    <section class="slide-content"><h3 id="fragments">Fragments</h3>
+<ul>
+<li>A common pattern in React is for a component to <strong>return multiple elements</strong>.</li>
+<li>Fragments let you <strong>group a list of children without adding extra nodes</strong> to the DOM.</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ParametersList</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+      {props.parameters.map(parameter =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">React.Fragment</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{parameter.id}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>{parameter.name}<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>{parameter.value}<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">React.Fragment</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+  );
+}</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-20">
+    <section class="slide-content"><h3 id="context">Context</h3>
+<ul>
+<li>Context lets the data pass through the component tree <strong>implicitly</strong></li>
+</ul>
+<h4 id="passing-data-without-context">Passing data without context</h4>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">background:</span> <span class="hljs-attr">this.props.background</span> }}&gt;</span>
+        A
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+    );
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      &lt;A background={this.props.background} /&gt;
+    );
+  }
+}
+
+class C extends React.Component {
+  render() {
+    return (
+      &lt;B background={this.props.background} /&gt;
+    );
+  }
+}
+
+class D extends React.Component {
+  render() {
+    return (
+      &lt;C background="f00" /&gt;
+    );
+  }
+}
+</code></pre>
+<h4 id="passing-data-with-context">Passing data with context</h4>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">static</span> contextTypes = {
+    <span class="hljs-attr">background</span>: PropTypes.string
+  };
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">background:</span> <span class="hljs-attr">this.props.background</span> }}&gt;</span>
+        A
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+    );
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">A</span> /&gt;</span>
+    );
+  }
+}
+
+class C extends React.Component {
+  render() {
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-name">B</span> /&gt;</span>
+    );
+  }
+}
+
+class D extends React.Component {
+  static childContextTypes = {
+    background: PropTypes.string
+  };
+
+  getChildContext() {
+    return { background: "f00" };
+  }
+
+  render() {
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-name">C</span> /&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-21">
+    <section class="slide-content"><h3 id="higher-order-components">Higher-Order Components</h3>
+<ul>
+<li>Higher-order component is a &amp;&amp;function that takes a component and returns a new component**.</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> EnhancedComponent = higherOrderComponent(WrappedComponent);
+</code></pre>
+<p>Example</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withLoader</span>(<span class="hljs-params">WrappedComponent</span>) </span>{
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WithLoader</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+    render() {
+      <span class="hljs-comment">// pass all props with spread operator</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.loaded ? (
+        &lt;WrappedComponent {...this.props} /&gt;
+      ) : &lt;div className="loader" /&gt;;
+    }
+  }
+  // override displayName to indicate HoC usage
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  WithLoader.displayName = `WithLoader(${displayName})`;
+  // return new component
+  return WithLoader;
+}
+
+@withLoader
+class Welcome extends React.Component {
+  render() {
+    return (
+      &lt;h1&gt;Hello, {this.props.name}!&lt;/h1&gt;
+    );
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;Welcome loaded={false} name="Pawel" /&gt;
+        &lt;Welcome loaded={true} name="Pawel" /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-22">
+    <section class="slide-content"><h3 id="server-side-rendering">Server-side Rendering</h3>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-23">
+    <section class="slide-content"><h3 id="testing">Testing</h3>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-24">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Pawel Wieladek</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@pawelwieladek">@pawelwieladek</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://pawelwieladek.com">http://pawelwieladek.com</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
