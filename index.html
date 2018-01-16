@@ -538,11 +538,375 @@ pre > code {
 </section>
   </div>
   <div class="slide hidden -" id="slide-4">
+    <section class="slide-content"><h3 id="objects">Objects</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'Pawel'</span>;
+
+<span class="hljs-comment">// ES5</span>
+<span class="hljs-keyword">var</span> you = {
+    <span class="hljs-attr">name</span>: name
+};
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-keyword">let</span> me = {
+    name
+};
+</code></pre>
+<h4 id="methods">Methods</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
+<span class="hljs-keyword">var</span> you = {
+    <span class="hljs-attr">sayHello</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello, '</span> + name + <span class="hljs-string">'!'</span>;
+    }
+};
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-keyword">let</span> me = {
+    sayHello(name) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`Hi, <span class="hljs-subst">${name}</span>!`</span>;
+    }
+};
+</code></pre>
+<h4 id="getter">Getter</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> me = {
+    <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Pawel'</span>,
+    <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Wieladek'</span>,
+    get name() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.firstName}</span> <span class="hljs-subst">${<span class="hljs-keyword">this</span>.lastName}</span>`</span>;
+    }
+};
+
+<span class="hljs-built_in">console</span>.log(me.name);
+<span class="hljs-comment">// Pawel Wieladek</span>
+</code></pre>
+<h4 id="setter">Setter</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> me = {
+    <span class="hljs-attr">counter</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Pawel'</span>,
+    <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Wieladek'</span>,
+    get greeting() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, I'm <span class="hljs-subst">${<span class="hljs-keyword">this</span>.firstName}</span> <span class="hljs-subst">${<span class="hljs-keyword">this</span>.lastName}</span>`</span>;
+    },
+    set name(value) {
+        <span class="hljs-keyword">this</span>.firstName = value;
+        <span class="hljs-keyword">this</span>.counter++;
+    }
+};
+
+me.name = <span class="hljs-string">'Pablo'</span>;
+
+<span class="hljs-built_in">console</span>.log(me.greeting);
+<span class="hljs-comment">// Hello, I'm Pablo Wieladek!</span>
+
+<span class="hljs-built_in">console</span>.log(me.counter);
+<span class="hljs-comment">// 1</span>
+</code></pre>
+<h4 id="computed-property-names">Computed property names</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createIconClassNames</span>(<span class="hljs-params">name, size</span>) </span>{
+    <span class="hljs-keyword">var</span> classNames = {};
+    classNames[<span class="hljs-string">'icon-'</span> + name] = !!name;
+    classNames[<span class="hljs-string">'icon-'</span> + size] = !!size;
+    <span class="hljs-keyword">return</span> classNames;
+}
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createIconClassNames</span>(<span class="hljs-params">name, size</span>) </span>{
+    <span class="hljs-keyword">return</span> {
+        [<span class="hljs-string">`icon-<span class="hljs-subst">${name}</span>`</span>]: !!name,
+        [<span class="hljs-string">`icon-<span class="hljs-subst">${size}</span>`</span>]: !!size
+    };
+}
+
+<span class="hljs-keyword">let</span> iconClassNames = createIconClassNames(<span class="hljs-string">'square'</span>, <span class="hljs-string">'large'</span>);
+
+<span class="hljs-built_in">console</span>.log(iconClassNames);
+<span class="hljs-comment">// { 'icon-square': true, 'icon-large': true }</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-5">
+    <section class="slide-content"><h3 id="destructuring">Destructuring</h3>
+<h4 id="list-matching">List matching</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> [a, b, c] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-built_in">console</span>.log(a);
+<span class="hljs-comment">// 1;</span>
+<span class="hljs-built_in">console</span>.log(b);
+<span class="hljs-comment">// 2;</span>
+<span class="hljs-built_in">console</span>.log(c);
+<span class="hljs-comment">// 3;</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> [a, , c] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-built_in">console</span>.log(a);
+<span class="hljs-comment">// 1;</span>
+<span class="hljs-built_in">console</span>.log(c);
+<span class="hljs-comment">// 3;</span>
+</code></pre>
+<h4 id="object-matching">Object matching</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPerson</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Pawel'</span>,
+        <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Wieladek'</span>
+    };
+}
+
+<span class="hljs-comment">// later on...</span>
+
+<span class="hljs-keyword">let</span> { firstName, lastName } = createPerson();
+
+<span class="hljs-built_in">console</span>.log(firstName);
+<span class="hljs-comment">// Pawel</span>
+<span class="hljs-built_in">console</span>.log(lastName);
+<span class="hljs-comment">// Wieladek</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> { <span class="hljs-attr">firstName</span>: f, <span class="hljs-attr">lastName</span>: l } = createPerson();
+
+<span class="hljs-built_in">console</span>.log(f);
+<span class="hljs-comment">// Pawel</span>
+<span class="hljs-built_in">console</span>.log(l);
+<span class="hljs-comment">// Wieladek</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> response = {
+    <span class="hljs-attr">status</span>: <span class="hljs-number">400</span>,
+    <span class="hljs-attr">errors</span>: [
+        {
+            <span class="hljs-attr">text</span>: <span class="hljs-string">'Bad Request'</span>,
+            <span class="hljs-attr">stack</span>: <span class="hljs-string">'...'</span>
+        }
+    ]
+};
+
+<span class="hljs-keyword">let</span> { status, <span class="hljs-attr">errors</span>: [ { <span class="hljs-attr">text</span>: message } ] } = response;
+
+<span class="hljs-built_in">console</span>.log(status);
+<span class="hljs-comment">// 400</span>
+<span class="hljs-built_in">console</span>.log({ message });
+<span class="hljs-comment">// { message: 'Bad request' }</span>
+</code></pre>
+<h4 id="destructuring-in-function-argument">Destructuring in function argument</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params">{ first, last }</span>) </span>{
+    <span class="hljs-comment">// first and last are variables from now</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, I'm <span class="hljs-subst">${first}</span> <span class="hljs-subst">${last}</span>!`</span>;
+}
+
+<span class="hljs-keyword">let</span> greeting = sayHello({
+    <span class="hljs-attr">first</span>: <span class="hljs-string">'Pawel'</span>,
+    <span class="hljs-attr">last</span>: <span class="hljs-string">'Wieladek'</span>
+});
+
+<span class="hljs-built_in">console</span>.log(greeting);
+<span class="hljs-comment">// Hi, I'm Pawel Wieladek!</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-6">
+    <section class="slide-content"><h3 id="function-arguments">Function arguments</h3>
+<h4 id="default-parameters">Default parameters</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">multiply</span>(<span class="hljs-params">a, b = <span class="hljs-number">1</span></span>) </span>{
+    <span class="hljs-keyword">return</span> a * b;
+}
+
+<span class="hljs-built_in">console</span>.log(multiply(<span class="hljs-number">5</span>));
+<span class="hljs-comment">// 5</span>
+<span class="hljs-built_in">console</span>.log(multiply(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+<span class="hljs-comment">// 6</span>
+</code></pre>
+<h4 id="rest-parameters">Rest parameters</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">append</span>(<span class="hljs-params">a, ...b</span>) </span>{
+    <span class="hljs-comment">// b is an Array</span>
+    <span class="hljs-keyword">return</span> a + <span class="hljs-string">', '</span> + b.join(<span class="hljs-string">', '</span>);
+}
+
+<span class="hljs-built_in">console</span>.log(append(<span class="hljs-string">'apple'</span>, <span class="hljs-string">'orange'</span>, <span class="hljs-string">'plum'</span>, <span class="hljs-string">'kiwi'</span>));
+<span class="hljs-comment">// apple, orange, plum, kiwi</span>
+</code></pre>
+<h4 id="spread-operator">Spread operator</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y, z</span>) </span>{
+  <span class="hljs-keyword">return</span> x + y + z;
+}
+
+<span class="hljs-keyword">let</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-built_in">console</span>.log(add(...a));
+<span class="hljs-comment">// 6</span>
+
+<span class="hljs-keyword">let</span> b = [
+    ...a,
+    <span class="hljs-number">4</span>,
+    <span class="hljs-number">5</span>
+];
+<span class="hljs-built_in">console</span>.log(b);
+<span class="hljs-comment">// 1, 2, 3, 4, 5</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-7">
+    <section class="slide-content"><h3 id="arrow-function">Arrow function</h3>
+<h4 id="single-argument">Single argument</h4>
+<pre><code class="lang-js">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>].map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x * <span class="hljs-number">2</span>);    
+
+<span class="hljs-comment">// [2, 4, 6, 8]</span>
+</code></pre>
+<h4 id="multiple-arguments">Multiple arguments</h4>
+<pre><code class="lang-js">[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>].map(<span class="hljs-function">(<span class="hljs-params">value, index</span>) =&gt;</span> {
+    index = index + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> [index, value];
+});
+
+<span class="hljs-comment">// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]</span>
+</code></pre>
+<h4 id="multiple-arguments-with-destructuring">Multiple arguments with destructuring</h4>
+<pre><code class="lang-js">[[<span class="hljs-number">1</span>, <span class="hljs-string">'a'</span>], [<span class="hljs-number">2</span>, <span class="hljs-string">'b'</span>], [<span class="hljs-number">3</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-number">4</span>, <span class="hljs-string">'d'</span>]].map(<span class="hljs-function">(<span class="hljs-params">[index, value]</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> {
+        [value]: index
+    };
+});
+
+<span class="hljs-comment">// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]</span>
+</code></pre>
+<h4 id="-this-autobinding"><code>this</code> autobinding</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AsyncCounter</span>(<span class="hljs-params">initialValue</span>) </span>{
+    <span class="hljs-keyword">this</span>.value = initialValue;
+}
+
+AsyncCounter.prototype.increment = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.value++;
+    }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">100</span>);
+};
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncCounter</span> </span>{
+    <span class="hljs-keyword">constructor</span>(initialValue) {
+        <span class="hljs-keyword">this</span>.value = initialValue;
+    }
+
+    increment() {
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-comment">// `this` is bound to the value of current context</span>
+            <span class="hljs-keyword">this</span>.value++;
+        }, <span class="hljs-number">100</span>);
+    }
+}
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-8">
+    <section class="slide-content"><h3 id="classes">Classes</h3>
+<h4 id="base-class">Base class</h4>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+    <span class="hljs-keyword">constructor</span>(x, y) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+    }
+
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`x = <span class="hljs-subst">${<span class="hljs-keyword">this</span>.x}</span>, y = <span class="hljs-subst">${<span class="hljs-keyword">this</span>.y}</span>`</span>;
+    }
+}
+
+<span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+
+<span class="hljs-built_in">console</span>.log(p.toString());      
+<span class="hljs-comment">// x = 3, y = 4</span>
+
+<span class="hljs-comment">// toString overridden</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">''</span> + p);            
+<span class="hljs-comment">// x = 3, y = 4</span>
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${p}</span>`</span>);            
+<span class="hljs-comment">// x = 3, y = 4</span>
+</code></pre>
+<h4 id="derived-class">Derived class</h4>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
+    <span class="hljs-keyword">constructor</span>(x, y, color) {
+        <span class="hljs-keyword">super</span>(x, y);
+        <span class="hljs-keyword">this</span>.color = color;
+    }
+
+    <span class="hljs-keyword">static</span> createDefault() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">'black'</span>);
+    }
+
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">super</span>.toString()}</span>, color = <span class="hljs-subst">${<span class="hljs-keyword">this</span>.color}</span>`</span>;
+    }
+}
+
+<span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-string">'red'</span>);
+
+<span class="hljs-built_in">console</span>.log(p.toString());      
+<span class="hljs-comment">// x = 2, y = 3, color = red</span>
+
+<span class="hljs-keyword">let</span> q = ColorPoint.createDefault();
+
+<span class="hljs-built_in">console</span>.log(q.toString());      
+<span class="hljs-comment">// x = 0, y = 0, color = black</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-9">
+    <section class="slide-content"><h3 id="modules">Modules</h3>
+<h4 id="default-export">Default export</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// square.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">square</span>(<span class="hljs-params">x</span>) </span>{
+    <span class="hljs-keyword">return</span> x * x;
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
+
+<span class="hljs-keyword">import</span> sq <span class="hljs-keyword">from</span> <span class="hljs-string">'./square'</span>;
+
+<span class="hljs-built_in">console</span>.log(sq(<span class="hljs-number">8</span>));
+<span class="hljs-comment">// 64</span>
+</code></pre>
+<h4 id="named-export">Named export</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// lib.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> PI = <span class="hljs-number">3.14</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">square</span>(<span class="hljs-params">x</span>) </span>{
+    <span class="hljs-keyword">return</span> x * x;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> </span>{
+    <span class="hljs-keyword">constructor</span>(x, y, r) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+        <span class="hljs-keyword">this</span>.r = r;
+    }
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
+
+<span class="hljs-keyword">import</span> { square, PI, Circle } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lib'</span>;
+
+<span class="hljs-built_in">console</span>.log(PI);
+<span class="hljs-comment">// 3.14</span>
+<span class="hljs-built_in">console</span>.log(square(<span class="hljs-number">8</span>));
+<span class="hljs-comment">// 64</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> Circle(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>));
+<span class="hljs-comment">// { x: 3, y: 4, r: 5 }</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> lib <span class="hljs-keyword">from</span> <span class="hljs-string">'./lib'</span>;
+
+<span class="hljs-built_in">console</span>.log(lib.PI);
+<span class="hljs-comment">// 3.14</span>
+<span class="hljs-built_in">console</span>.log(lib.square(<span class="hljs-number">8</span>));
+<span class="hljs-comment">// 64</span>
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-10">
     <section class="slide-content"><h1 id="part-2-react">Part 2. React</h1>
 <p><img src="images/react-logo.png" width="200" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-5">
+  <div class="slide hidden -" id="slide-11">
     <section class="slide-content"><h3 id="hello-world-">Hello, World!</h3>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"root"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
@@ -555,7 +919,7 @@ ReactDOM.render(
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-6">
+  <div class="slide hidden -" id="slide-12">
     <section class="slide-content"><h3 id="jsx-syntax">JSX syntax</h3>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"greeting"</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
 </code></pre>
@@ -567,6 +931,7 @@ ReactDOM.render(
 </code></pre>
 <h4 id="separation-of-conerns">Separation of conerns</h4>
 <p>Separate logic units instead of technologies.</p>
+<p>@todo: obrazek</p>
 <h4 id="jsx-is-a-function-call">JSX is a function call</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
 </code></pre>
@@ -612,47 +977,37 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
 </code></pre>
 <h4 id="jsx-prevents-injection-attacks">JSX Prevents Injection Attacks</h4>
 <p>By default, React DOM escapes any values embedded in JSX before rendering them.</p>
-<pre><code class="lang-js">&lt;Header greeting={<span class="hljs-string">'&lt;3'</span>} /&gt;
-<span class="hljs-comment">// is equal to</span>
-&lt;Header greeting=<span class="hljs-string">"&amp;lt;3"</span> /&gt;
+<pre><code class="lang-html">&lt;Header greeting={'&lt;3'} /&gt;
+</code></pre>
+<p>is equal to</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">Header</span> <span class="hljs-attr">greeting</span>=<span class="hljs-string">"&amp;lt;3"</span> /&gt;</span>
 </code></pre>
 <h4 id="expression-as-children">Expression as children</h4>
-<pre><code class="lang-jsx">&lt;ul&gt;
-  {items.map((item) =&gt; &lt;li key={item}&gt;{item}&lt;/li&gt;)}
-&lt;/ul&gt;
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  {items.map((item) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{item}</span>&gt;</span>{item}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)}
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
 <h4 id="function-as-children">Function as children</h4>
-<pre><code class="lang-jsx">&lt;ul&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Repeat</span> <span class="hljs-attr">times</span>=<span class="hljs-string">{3}</span>&gt;</span>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Repeat</span> <span class="hljs-attr">times</span>=<span class="hljs-string">{3}</span>&gt;</span>
     {(index) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{index}</span>&gt;</span>{index}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>}
-  <span class="hljs-tag">&lt;/<span class="hljs-name">Repeat</span>&gt;</span></span>
-&lt;<span class="hljs-regexp">/ul&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Repeat</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
-<h4 id="booleans-null-and-undefined-are-ignored">Booleans, Null, and Undefined Are Ignored</h4>
-<pre><code class="lang-js">&lt;div /&gt;
-
-&lt;div&gt;&lt;/div&gt;
-
-&lt;div&gt;{false}&lt;/div&gt;
-
-&lt;div&gt;{null}&lt;/div&gt;
-
-&lt;div&gt;{undefined}&lt;/div&gt;
-
-&lt;div&gt;{true}&lt;/div&gt;
+<h4 id="booleans-null-and-undefined-are-ignored">Booleans, Null, and Undefined are ignored</h4>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{false}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{null}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{undefined}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{true}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-7">
+  <div class="slide hidden -" id="slide-13">
     <section class="slide-content"><h3 id="props">Props</h3>
-<ul>
-<li><p><code>props</code> are <strong>input data</strong>.</p>
-</li>
-<li><p><code>props</code> are <strong>read-only</strong>.</p>
-</li>
-<li><p>Components are <strong>independent, reusable pieces</strong>.</p>
-</li>
-</ul>
+<p><code>props</code> are <strong>input data</strong>.</p>
+<p><code>props</code> are <strong>read-only</strong>.</p>
 <h4 id="component-as-a-class">Component as a class</h4>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -667,21 +1022,15 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
 </code></pre>
 <h4 id="extraction">Extraction</h4>
 <p>Split large piece of functionality into smaller components.</p>
-<p>@todo: obrazek</p>
+<p><img src="images/components-layout.svg" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-8">
+  <div class="slide hidden -" id="slide-14">
     <section class="slide-content"><h3 id="state">State</h3>
-<ul>
-<li><p>Component must act like a <strong>pure function</strong>.</p>
-</li>
-<li><p>UI is dynamic and <strong>changes over time</strong>.</p>
-</li>
-<li><p>Component can have its own <strong>state</strong> to reflect the changes.</p>
-</li>
-<li><p>Component <strong>change state only by</strong> <code>setState()</code> function</p>
-</li>
-</ul>
+<p>Component must act like a <strong>pure function</strong>.</p>
+<p>UI is dynamic and <strong>changes over time</strong>.</p>
+<p>Component can have its own <strong>state</strong> to reflect the changes.</p>
+<p>Component <strong>change state only by</strong> <code>setState()</code> function</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
     <span class="hljs-keyword">super</span>(props);
@@ -725,31 +1074,87 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-9">
+  <div class="slide hidden -" id="slide-15">
     <section class="slide-content"><h3 id="events">Events</h3>
-<p>// komponent rodzic i dziecko</p>
-<h4 id="syntheticevent">SyntheticEvent</h4>
+<p><code>SyntheticEvent</code> for cross-browser compatibility.</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.handleChange = <span class="hljs-keyword">this</span>.handleChange.bind(<span class="hljs-keyword">this</span>);
+  }
+
+  handleChange(event) {
+    <span class="hljs-comment">// event is not plain JS Event, but React SyntheticEvent</span>
+    <span class="hljs-keyword">this</span>.props.onChange(event.target.value);
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{this.props.value}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span>
+      /&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-10">
+  <div class="slide hidden - " id="slide-16">
     <section class="slide-content"><h3 id="data-flow">Data flow</h3>
-<ul>
-<li>Components contains components forming a <strong>tree</strong>.</li>
-<li>Components pass data from the <strong>top to the bottom</strong>.</li>
-</ul>
-<p>@todo: obrazek</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.handleChange = <span class="hljs-keyword">this</span>.handleChange.bind(<span class="hljs-keyword">this</span>);
+  }
+
+  handleChange(event) {
+    <span class="hljs-keyword">this</span>.props.onChange(event.target.value);
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{this.props.value}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span>
+      /&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.handleChange = <span class="hljs-keyword">this</span>.handleChange.bind(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">this</span>.state = {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'world'</span>
+    };
+  }
+
+  handleChange(name) {
+    <span class="hljs-keyword">this</span>.setState({ handleChange });
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{name}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    );
+  }
+}</span>
+</code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-11">
+  <div class="slide hidden -" id="slide-17">
     <section class="slide-content"><h3 id="virtual-dom">Virtual DOM</h3>
-<ul>
-<li>Instead of manipulating DOM tree, React implements it&#39;s own tree of components</li>
-<li>React compares two component trees, finds changes and apply them on the DOM.</li>
-</ul>
-<p>@todo: obrazek</p>
+<p>Instead of manipulating DOM tree, React implements it&#39;s own <strong>tree of components</strong></p>
+<p>React compares two component trees, finds changes and apply them on the DOM.</p>
+<p><img src="images/virtual-dom.svg" width="600" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-12">
+  <div class="slide hidden -" id="slide-18">
     <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -793,7 +1198,7 @@ render() {
 </ol>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-13">
+  <div class="slide hidden -" id="slide-19">
     <section class="slide-content"><h3 id="conditional-rendering">Conditional Rendering</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -829,12 +1234,8 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-14">
+  <div class="slide hidden -" id="slide-20">
     <section class="slide-content"><h3 id="lists">Lists</h3>
-<p>Recall:</p>
-<ul>
-<li>JSX tag is a function call.</li>
-</ul>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
@@ -848,10 +1249,8 @@ render() {
 }
 </code></pre>
 <h4 id="keys">Keys</h4>
-<ul>
-<li>Keys help React identify which items have changed</li>
-<li>Key has to be unique for the item among its siblings</li>
-</ul>
+<p>Keys help React identify which items have changed.</p>
+<p>Key has to be unique for the item among its siblings.</p>
 <pre><code class="lang-js">// bad practice
 &lt;ul&gt;
   {items.map((item, index) =&gt;
@@ -861,7 +1260,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-15">
+  <div class="slide hidden -" id="slide-21">
     <section class="slide-content"><h3 id="composition">Composition</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -904,7 +1303,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-16">
+  <div class="slide hidden -" id="slide-22">
     <section class="slide-content"><h3 id="prop-types">Prop Types</h3>
 <p>Define component&#39;s API and validate input data.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
@@ -933,12 +1332,10 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-17">
+  <div class="slide hidden -" id="slide-23">
     <section class="slide-content"><h3 id="refs">Refs</h3>
-<ul>
-<li>Typically to modify a child, you <strong>re-render it with new props</strong>. </li>
-<li><strong>refs</strong> gives an access to a DOM node.</li>
-</ul>
+<p>Typically to modify a child, you <strong>re-render it with new props</strong>. </p>
+<p><strong>refs</strong> gives an access to a DOM node.</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   componentDidMount() {
     <span class="hljs-comment">// once component is mounted, DOM node is present</span>
@@ -955,7 +1352,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-18">
+  <div class="slide hidden -" id="slide-24">
     <section class="slide-content"><h3 id="style-and-classes">Style and classes</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -972,12 +1369,10 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-19">
+  <div class="slide hidden -" id="slide-25">
     <section class="slide-content"><h3 id="fragments">Fragments</h3>
-<ul>
-<li>A common pattern in React is for a component to <strong>return multiple elements</strong>.</li>
-<li>Fragments let you <strong>group a list of children without adding extra nodes</strong> to the DOM.</li>
-</ul>
+<p>A common pattern in React is for a component to <strong>return multiple elements</strong>.</p>
+<p>Fragments let you <strong>group a list of children without adding extra nodes</strong> to the DOM.</p>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ParametersList</span>(<span class="hljs-params">props</span>) </span>{
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
@@ -993,45 +1388,43 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-20">
+  <div class="slide hidden -" id="slide-26">
     <section class="slide-content"><h3 id="context">Context</h3>
-<ul>
-<li>Context lets the data pass through the component tree <strong>implicitly</strong></li>
-</ul>
+<p>Context lets the data pass through the component tree <strong>implicitly</strong></p>
 <h4 id="passing-data-without-context">Passing data without context</h4>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">background:</span> <span class="hljs-attr">this.props.background</span> }}&gt;</span>
-        A
+        Click me
       <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
     );
   }
 }
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
-      &lt;A background={this.props.background} /&gt;
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">A</span> <span class="hljs-attr">background</span>=<span class="hljs-string">{this.props.background}</span> /&gt;</span>
     );
   }
-}
-
-class C extends React.Component {
+}</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
-    return (
-      &lt;B background={this.props.background} /&gt;
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">B</span> <span class="hljs-attr">background</span>=<span class="hljs-string">{this.props.background}</span> /&gt;</span>
     );
   }
-}
-
-class D extends React.Component {
+}</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">D</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
-    return (
-      &lt;C background="f00" /&gt;
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">C</span> <span class="hljs-attr">background</span>=<span class="hljs-string">"f00"</span> /&gt;</span>
     );
   }
-}
+}</span>
 </code></pre>
 <h4 id="passing-data-with-context">Passing data with context</h4>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -1042,51 +1435,49 @@ class D extends React.Component {
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">background:</span> <span class="hljs-attr">this.props.background</span> }}&gt;</span>
-        A
+        Click me
       <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
     );
   }
 }
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">A</span> /&gt;</span>
     );
   }
-}
-
-class C extends React.Component {
+}</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
-    return (
-      <span class="hljs-tag">&lt;<span class="hljs-name">B</span> /&gt;</span>
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">B</span> /&gt;</span>
     );
   }
-}
-
-class D extends React.Component {
-  static childContextTypes = {
-    background: PropTypes.string
+}</span>
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">D</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">static</span> childContextTypes = {
+    <span class="hljs-attr">background</span>: PropTypes.string
   };
 
   getChildContext() {
-    return { background: "f00" };
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">background</span>: <span class="hljs-string">"f00"</span> };
   }
 
   render() {
-    return (
-      <span class="hljs-tag">&lt;<span class="hljs-name">C</span> /&gt;</span>
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">C</span> /&gt;</span>
     );
   }
 }</span>
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-21">
+  <div class="slide hidden -" id="slide-27">
     <section class="slide-content"><h3 id="higher-order-components">Higher-Order Components</h3>
-<ul>
-<li>Higher-order component is a &amp;&amp;function that takes a component and returns a new component**.</li>
-</ul>
+<p>Higher-order component is a &amp;&amp;function that takes a component and returns a <strong>new component</strong>.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> EnhancedComponent = higherOrderComponent(WrappedComponent);
 </code></pre>
 <p>Example</p>
@@ -1100,24 +1491,26 @@ class D extends React.Component {
     }
   }
   // override displayName to indicate HoC usage
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  const displayName = WrappedComponent.displayName ||
+    WrappedComponent.name ||
+    'Component';
   WithLoader.displayName = `WithLoader(${displayName})`;
   // return new component
   return WithLoader;
 }
-
-@withLoader
-class Welcome extends React.Component {
+</code></pre>
+<pre><code class="lang-js">@withLoader
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Welcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
-    return (
-      &lt;h1&gt;Hello, {this.props.name}!&lt;/h1&gt;
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
     );
   }
 }
-
-class App extends React.Component {
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
-    return (
+    <span class="hljs-keyword">return</span> (
       &lt;div&gt;
         &lt;Welcome loaded={false} name="Pawel" /&gt;
         &lt;Welcome loaded={true} name="Pawel" /&gt;
@@ -1128,15 +1521,15 @@ class App extends React.Component {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-22">
+  <div class="slide hidden -" id="slide-28">
     <section class="slide-content"><h3 id="server-side-rendering">Server-side Rendering</h3>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-23">
+  <div class="slide hidden -" id="slide-29">
     <section class="slide-content"><h3 id="testing">Testing</h3>
 </section>
   </div>
-  <div class="slide hidden author-slide" id="slide-24">
+  <div class="slide hidden author-slide" id="slide-30">
     <section class="slide-content"><div class="author">
   <h1 class="name">Pawel Wieladek</h1>
     <h3 class="twitter">
