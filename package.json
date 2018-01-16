@@ -7,7 +7,7 @@
     "build": "cleaver index.md",
     "serve": "http-server ./public -p 9090",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d ."
+    "deploy": "gh-pages -d public/"
   },
   "author": "Pawel Wieladek <pawelwieladek@gmail.com>",
   "license": "ISC",

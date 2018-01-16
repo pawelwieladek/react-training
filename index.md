@@ -39,6 +39,437 @@ const b;
 
 ---
 
+### Objects
+
+```js
+let name = 'Pawel';
+
+// ES5
+var you = {
+    name: name
+};
+
+// ES6
+let me = {
+    name
+};
+```
+
+#### Methods
+
+```js
+// ES5
+var you = {
+    sayHello: function(name) {
+        return 'Hello, ' + name + '!';
+    }
+};
+
+// ES6
+let me = {
+    sayHello(name) {
+        return `Hi, ${name}!`;
+    }
+};
+```
+
+#### Getter
+
+```js
+let me = {
+    firstName: 'Pawel',
+    lastName: 'Wieladek',
+    get name() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+console.log(me.name);
+// Pawel Wieladek
+```
+
+#### Setter
+
+```js
+let me = {
+    counter: 0,
+    firstName: 'Pawel',
+    lastName: 'Wieladek',
+    get greeting() {
+        return `Hello, I'm ${this.firstName} ${this.lastName}`;
+    },
+    set name(value) {
+        this.firstName = value;
+        this.counter++;
+    }
+};
+
+me.name = 'Pablo';
+
+console.log(me.greeting);
+// Hello, I'm Pablo Wieladek!
+
+console.log(me.counter);
+// 1
+```
+
+#### Computed property names
+
+```js
+// ES5
+function createIconClassNames(name, size) {
+    var classNames = {};
+    classNames['icon-' + name] = !!name;
+    classNames['icon-' + size] = !!size;
+    return classNames;
+}
+
+// ES6
+function createIconClassNames(name, size) {
+    return {
+        [`icon-${name}`]: !!name,
+        [`icon-${size}`]: !!size
+    };
+}
+
+let iconClassNames = createIconClassNames('square', 'large');
+
+console.log(iconClassNames);
+// { 'icon-square': true, 'icon-large': true }
+```
+
+---
+
+### Destructuring
+
+#### List matching
+```js
+var [a, b, c] = [1, 2, 3, 4];
+
+console.log(a);
+// 1;
+console.log(b);
+// 2;
+console.log(c);
+// 3;
+```
+
+```js
+let [a, , c] = [1, 2, 3, 4];
+
+console.log(a);
+// 1;
+console.log(c);
+// 3;
+```
+
+#### Object matching
+
+```js
+function createPerson() {
+    return {
+        firstName: 'Pawel',
+        lastName: 'Wieladek'
+    };
+}
+
+// later on...
+
+let { firstName, lastName } = createPerson();
+
+console.log(firstName);
+// Pawel
+console.log(lastName);
+// Wieladek
+```
+
+```js
+let { firstName: f, lastName: l } = createPerson();
+
+console.log(f);
+// Pawel
+console.log(l);
+// Wieladek
+```
+
+```js
+let response = {
+    status: 400,
+    errors: [
+        {
+            text: 'Bad Request',
+            stack: '...'
+        }
+    ]
+};
+
+let { status, errors: [ { text: message } ] } = response;
+
+console.log(status);
+// 400
+console.log({ message });
+// { message: 'Bad request' }
+```
+
+#### Destructuring in function argument
+
+```js
+function sayHello({ first, last }) {
+    // first and last are variables from now
+    return `Hello, I'm ${first} ${last}!`;
+}
+
+let greeting = sayHello({
+    first: 'Pawel',
+    last: 'Wieladek'
+});
+
+console.log(greeting);
+// Hi, I'm Pawel Wieladek!
+```
+
+---
+
+### Function arguments
+
+#### Default parameters
+
+```js
+function multiply(a, b = 1) {
+    return a * b;
+}
+
+console.log(multiply(5));
+// 5
+console.log(multiply(2, 3));
+// 6
+```
+
+#### Rest parameters
+
+```js
+function append(a, ...b) {
+    // b is an Array
+    return a + ', ' + b.join(', ');
+}
+
+console.log(append('apple', 'orange', 'plum', 'kiwi'));
+// apple, orange, plum, kiwi
+```
+
+#### Spread operator
+
+```js
+function add(x, y, z) {
+  return x + y + z;
+}
+
+let a = [1, 2, 3];
+console.log(add(...a));
+// 6
+
+let b = [
+    ...a,
+    4,
+    5
+];
+console.log(b);
+// 1, 2, 3, 4, 5
+```
+
+---
+
+### Arrow function
+
+#### Single argument
+
+```js
+[1, 2, 3, 4].map(x => x * 2);    
+
+// [2, 4, 6, 8]
+```
+
+#### Multiple arguments
+
+```js
+['a', 'b', 'c', 'd'].map((value, index) => {
+    index = index + 1;
+    return [index, value];
+});
+
+// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]
+```
+
+#### Multiple arguments with destructuring
+
+```js
+[[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].map(([index, value]) => {
+    return {
+        [value]: index
+    };
+});
+
+// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]
+```
+
+#### ```this``` autobinding
+
+```js
+// ES5
+function AsyncCounter(initialValue) {
+    this.value = initialValue;
+}
+
+AsyncCounter.prototype.increment = function() {
+    setTimeout(function() {
+        this.value++;
+    }.bind(this), 100);
+};
+
+// ES6
+class AsyncCounter {
+    constructor(initialValue) {
+        this.value = initialValue;
+    }
+
+    increment() {
+        setTimeout(() => {
+            // `this` is bound to the value of current context
+            this.value++;
+        }, 100);
+    }
+}
+```
+
+---
+
+### Classes
+
+#### Base class
+
+```js
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    toString() {
+        return `x = ${this.x}, y = ${this.y}`;
+    }
+}
+
+let p = new Point(3, 4);
+
+console.log(p.toString());      
+// x = 3, y = 4
+
+// toString overridden
+console.log('' + p);            
+// x = 3, y = 4
+
+console.log(`${p}`);            
+// x = 3, y = 4
+```
+
+#### Derived class
+
+```js
+class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y);
+        this.color = color;
+    }
+
+    static createDefault() {
+        return new ColorPoint(0, 0, 'black');
+    }
+
+    toString() {
+        return `${super.toString()}, color = ${this.color}`;
+    }
+}
+
+let p = new ColorPoint(2, 3, 'red');
+
+console.log(p.toString());      
+// x = 2, y = 3, color = red
+
+let q = ColorPoint.createDefault();
+
+console.log(q.toString());      
+// x = 0, y = 0, color = black
+```
+
+---
+
+### Modules
+
+#### Default export
+
+```js
+// square.js
+
+export default function square(x) {
+    return x * x;
+}
+```
+
+```js
+// main.js
+
+import sq from './square';
+
+console.log(sq(8));
+// 64
+```
+
+#### Named export
+
+```js
+// lib.js
+
+export const PI = 3.14;
+
+export function square(x) {
+    return x * x;
+}
+
+export class Circle {
+    constructor(x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+}
+```
+
+```js
+// main.js
+
+import { square, PI, Circle } from './lib';
+
+console.log(PI);
+// 3.14
+console.log(square(8));
+// 64
+console.log(new Circle(3, 4, 5));
+// { x: 3, y: 4, r: 5 }
+```
+
+```js
+// main.js
+
+import * as lib from './lib';
+
+console.log(lib.PI);
+// 3.14
+console.log(lib.square(8));
+// 64
+```
+
+---
+
 # Part 2. React
 
 <img src="images/react-logo.png" width="200" />
@@ -78,6 +509,8 @@ const element = React.createElement(
 
 #### Separation of conerns
 Separate logic units instead of technologies.
+
+@todo: obrazek
 
 #### JSX is a function call
 ```js
@@ -154,15 +587,17 @@ const foo2 = <Component title={title} onClick={onClick} />
 #### JSX Prevents Injection Attacks
 By default, React DOM escapes any values embedded in JSX before rendering them.
 
-```js
+```html
 <Header greeting={'<3'} />
-// is equal to
+```
+is equal to
+```html
 <Header greeting="&lt;3" />
 ```
 
 #### Expression as children
 
-```jsx
+```html
 <ul>
   {items.map((item) => <li key={item}>{item}</li>)}
 </ul>
@@ -170,7 +605,7 @@ By default, React DOM escapes any values embedded in JSX before rendering them.
 
 #### Function as children
 
-```jsx
+```html
 <ul>
   <Repeat times={3}>
     {(index) => <li key={index}>{index}</li>}
@@ -178,19 +613,14 @@ By default, React DOM escapes any values embedded in JSX before rendering them.
 </ul>
 ```
 
-#### Booleans, Null, and Undefined Are Ignored
+#### Booleans, Null, and Undefined are ignored
 
-```js
+```html
 <div />
-
 <div></div>
-
 <div>{false}</div>
-
 <div>{null}</div>
-
 <div>{undefined}</div>
-
 <div>{true}</div>
 ```
 
@@ -198,11 +628,9 @@ By default, React DOM escapes any values embedded in JSX before rendering them.
 
 ### Props
 
-- ```props``` are **input data**.
+```props``` are **input data**.
 
-- ```props``` are **read-only**.
-
-- Components are **independent, reusable pieces**.
+```props``` are **read-only**.
 
 #### Component as a class
 
@@ -226,19 +654,19 @@ function Header(props) {
 
 Split large piece of functionality into smaller components.
 
-@todo: obrazek
+<img src="images/components-layout.svg" width="800" />
 
 ---
 
 ### State
 
-- Component must act like a **pure function**.
+Component must act like a **pure function**.
 
-- UI is dynamic and **changes over time**.
+UI is dynamic and **changes over time**.
 
-- Component can have its own **state** to reflect the changes.
+Component can have its own **state** to reflect the changes.
 
-- Component **change state only by** ```setState()``` function
+Component **change state only by** ```setState()``` function
 
 ```js
 class Counter extends React.Component {
@@ -293,27 +721,91 @@ render() {
 
 ### Events
 
-// komponent rodzic i dziecko
+```SyntheticEvent``` for cross-browser compatibility.
 
-#### SyntheticEvent
+```js
+class Input extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
----
+  handleChange(event) {
+    // event is not plain JS Event, but React SyntheticEvent
+    this.props.onChange(event.target.value);
+  }
+
+  render() {
+    return (
+      <input
+        value={this.props.value}
+        onChange={this.handleChange}
+      />
+    );
+  }
+}
+```
+
+--- 
 
 ### Data flow
 
-- Components contains components forming a **tree**.
-- Components pass data from the **top to the bottom**.
+```js
+class Input extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-@todo: obrazek
+  handleChange(event) {
+    this.props.onChange(event.target.value);
+  }
+
+  render() {
+    return (
+      <input
+        value={this.props.value}
+        onChange={this.handleChange}
+      />
+    );
+  }
+}
+```
+
+```js
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      name: 'world'
+    };
+  }
+
+  handleChange(name) {
+    this.setState({ handleChange });
+  }
+
+  render() {
+    return (
+      <div>
+        <Input value={name} onChange={this.handleChange} />
+        <h1>Hello, {name}!</h1>
+      </div>
+    );
+  }
+}
+```
 
 ---
 
 ### Virtual DOM
 
-- Instead of manipulating DOM tree, React implements it's own tree of components
-- React compares two component trees, finds changes and apply them on the DOM.
+Instead of manipulating DOM tree, React implements it's own **tree of components**
 
-@todo: obrazek
+React compares two component trees, finds changes and apply them on the DOM.
+
+<img src="images/virtual-dom.svg" width="600" />
 
 ---
 
@@ -402,10 +894,6 @@ class Header extends React.Component {
 
 ### Lists
 
-Recall:
-
-- JSX tag is a function call.
-
 ```js
 class Header extends React.Component {
   render() {
@@ -421,8 +909,10 @@ class Header extends React.Component {
 ```
 
 #### Keys
-- Keys help React identify which items have changed
-- Key has to be unique for the item among its siblings
+
+Keys help React identify which items have changed.
+
+Key has to be unique for the item among its siblings.
 
 ```js
 // bad practice
@@ -516,8 +1006,9 @@ class Header extends React.Component {
 
 ### Refs
 
-- Typically to modify a child, you **re-render it with new props**. 
-- **refs** gives an access to a DOM node.
+Typically to modify a child, you **re-render it with new props**. 
+
+**refs** gives an access to a DOM node.
 
 ```js
 class Input extends React.Component {
@@ -558,8 +1049,9 @@ class Header extends React.Component {
 
 ### Fragments
 
-- A common pattern in React is for a component to **return multiple elements**.
-- Fragments let you **group a list of children without adding extra nodes** to the DOM.
+A common pattern in React is for a component to **return multiple elements**.
+
+Fragments let you **group a list of children without adding extra nodes** to the DOM.
 
 ```js
 function ParametersList(props) {
@@ -580,7 +1072,7 @@ function ParametersList(props) {
 
 ### Context
 
-- Context lets the data pass through the component tree **implicitly**
+Context lets the data pass through the component tree **implicitly**
 
 #### Passing data without context
 
@@ -589,12 +1081,14 @@ class A extends React.Component {
   render() {
     return (
       <button style={{ background: this.props.background }}>
-        A
+        Click me
       </button>
     );
   }
 }
+```
 
+```js
 class B extends React.Component {
   render() {
     return (
@@ -602,7 +1096,9 @@ class B extends React.Component {
     );
   }
 }
+```
 
+```js
 class C extends React.Component {
   render() {
     return (
@@ -610,7 +1106,9 @@ class C extends React.Component {
     );
   }
 }
+```
 
+```js
 class D extends React.Component {
   render() {
     return (
@@ -631,12 +1129,14 @@ class A extends React.Component {
   render() {
     return (
       <button style={{ background: this.props.background }}>
-        A
+        Click me
       </button>
     );
   }
 }
+```
 
+```js
 class B extends React.Component {
   render() {
     return (
@@ -644,7 +1144,9 @@ class B extends React.Component {
     );
   }
 }
+```
 
+```js
 class C extends React.Component {
   render() {
     return (
@@ -652,7 +1154,9 @@ class C extends React.Component {
     );
   }
 }
+```
 
+```js
 class D extends React.Component {
   static childContextTypes = {
     background: PropTypes.string
@@ -674,7 +1178,7 @@ class D extends React.Component {
 
 ### Higher-Order Components
 
-- Higher-order component is a &&function that takes a component and returns a new component**.
+Higher-order component is a &&function that takes a component and returns a **new component**.
 
 ```js
 const EnhancedComponent = higherOrderComponent(WrappedComponent);
@@ -693,12 +1197,16 @@ function withLoader(WrappedComponent) {
     }
   }
   // override displayName to indicate HoC usage
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  const displayName = WrappedComponent.displayName ||
+    WrappedComponent.name ||
+    'Component';
   WithLoader.displayName = `WithLoader(${displayName})`;
   // return new component
   return WithLoader;
 }
+```
 
+```js
 @withLoader
 class Welcome extends React.Component {
   render() {
@@ -707,7 +1215,9 @@ class Welcome extends React.Component {
     );
   }
 }
+```
 
+```js
 class App extends React.Component {
   render() {
     return (
