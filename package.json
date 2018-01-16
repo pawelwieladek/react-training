@@ -1,0 +1,35 @@
+{
+  "name": "react-training",
+  "version": "1.0.0",
+  "description": "React Training",
+  "main": "index.js",
+  "scripts": {
+    "build": "cleaver index.md",
+    "start": "watch 'npm run build' .",
+    "serve": "http-server -p 9090",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d ."
+  },
+  "author": "Pawel Wieladek <pawelwieladek@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "cleaver": "^0.8.7",
+    "gh-pages": "^1.1.0",
+    "http-server": "^0.11.1",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawelwieladek/react-workshop.git"
+  },
+  "keywords": [
+    "react",
+    "workshop",
+    "es6"
+  ],
+  "bugs": {
+    "url": "https://github.com/pawelwieladek/react-workshop/issues"
+  },
+  "homepage": "https://github.com/pawelwieladek/react-workshop"
+}
