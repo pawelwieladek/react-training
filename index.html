@@ -931,7 +931,7 @@ ReactDOM.render(
 </code></pre>
 <h4 id="separation-of-conerns">Separation of conerns</h4>
 <p>Separate logic units instead of technologies.</p>
-<p>@todo: obrazek</p>
+<p><img src="images/component-jsx.svg" width="400" /></p>
 <h4 id="jsx-is-a-function-call">JSX is a function call</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
 </code></pre>
@@ -1051,7 +1051,7 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
         <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.increment}</span>&gt;</span>{this.state.count}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
     );
   }
-});
+}
 </code></pre>
 <h4 id="binding">Binding</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">this</span>.increment = <span class="hljs-keyword">this</span>.increment.bind(<span class="hljs-keyword">this</span>);
@@ -1132,7 +1132,7 @@ render() {
   }
 
   handleChange(name) {
-    <span class="hljs-keyword">this</span>.setState({ handleChange });
+    <span class="hljs-keyword">this</span>.setState({ name });
   }
 
   render() {
@@ -1148,13 +1148,23 @@ render() {
 </section>
   </div>
   <div class="slide hidden -" id="slide-17">
+    <section class="slide-content"><h3 id="data-flow">Data flow</h3>
+<p><img src="images/data-flow.svg" width="600" /></p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-18">
+    <section class="slide-content"><h3 id="data-flow">Data flow</h3>
+<p><img src="images/top-down.svg" width="800" /></p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-19">
     <section class="slide-content"><h3 id="virtual-dom">Virtual DOM</h3>
 <p>Instead of manipulating DOM tree, React implements it&#39;s own <strong>tree of components</strong></p>
 <p>React compares two component trees, finds changes and apply them on the DOM.</p>
 <p><img src="images/virtual-dom.svg" width="600" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-18">
+  <div class="slide hidden -" id="slide-20">
     <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1198,7 +1208,7 @@ render() {
 </ol>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-19">
+  <div class="slide hidden -" id="slide-21">
     <section class="slide-content"><h3 id="conditional-rendering">Conditional Rendering</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1216,7 +1226,7 @@ render() {
   }
 
   renderLine() {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.formEnabled) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.lineVisible) {
       <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>;
     }
   }
@@ -1234,7 +1244,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-20">
+  <div class="slide hidden -" id="slide-22">
     <section class="slide-content"><h3 id="lists">Lists</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -1260,7 +1270,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-21">
+  <div class="slide hidden -" id="slide-23">
     <section class="slide-content"><h3 id="composition">Composition</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1296,14 +1306,14 @@ render() {
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LargeButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> {<span class="hljs-attr">...props</span>} <span class="hljs-attr">size</span>=<span class="hljs-string">"large"</span> /&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> {<span class="hljs-attr">...this.props</span>} <span class="hljs-attr">size</span>=<span class="hljs-string">"large"</span> /&gt;</span>
     );
   }
 }</span>
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-22">
+  <div class="slide hidden -" id="slide-24">
     <section class="slide-content"><h3 id="prop-types">Prop Types</h3>
 <p>Define component&#39;s API and validate input data.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
@@ -1332,7 +1342,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-23">
+  <div class="slide hidden -" id="slide-25">
     <section class="slide-content"><h3 id="refs">Refs</h3>
 <p>Typically to modify a child, you <strong>re-render it with new props</strong>. </p>
 <p><strong>refs</strong> gives an access to a DOM node.</p>
@@ -1352,7 +1362,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-24">
+  <div class="slide hidden -" id="slide-26">
     <section class="slide-content"><h3 id="style-and-classes">Style and classes</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -1369,7 +1379,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-25">
+  <div class="slide hidden -" id="slide-27">
     <section class="slide-content"><h3 id="fragments">Fragments</h3>
 <p>A common pattern in React is for a component to <strong>return multiple elements</strong>.</p>
 <p>Fragments let you <strong>group a list of children without adding extra nodes</strong> to the DOM.</p>
@@ -1388,7 +1398,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-26">
+  <div class="slide hidden -" id="slide-28">
     <section class="slide-content"><h3 id="context">Context</h3>
 <p>Context lets the data pass through the component tree <strong>implicitly</strong></p>
 <h4 id="passing-data-without-context">Passing data without context</h4>
@@ -1421,7 +1431,7 @@ render() {
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">D</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">C</span> <span class="hljs-attr">background</span>=<span class="hljs-string">"f00"</span> /&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">C</span> <span class="hljs-attr">background</span>=<span class="hljs-string">"#f00"</span> /&gt;</span>
     );
   }
 }</span>
@@ -1475,7 +1485,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-27">
+  <div class="slide hidden -" id="slide-29">
     <section class="slide-content"><h3 id="higher-order-components">Higher-Order Components</h3>
 <p>Higher-order component is a &amp;&amp;function that takes a component and returns a <strong>new component</strong>.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> EnhancedComponent = higherOrderComponent(WrappedComponent);
@@ -1521,15 +1531,68 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-28">
-    <section class="slide-content"><h3 id="server-side-rendering">Server-side Rendering</h3>
-</section>
-  </div>
-  <div class="slide hidden -" id="slide-29">
+  <div class="slide hidden -" id="slide-30">
     <section class="slide-content"><h3 id="testing">Testing</h3>
+<p>Airbnb Enzyme - testing utility for React</p>
+<pre><code class="lang-js"><span class="hljs-comment">// setup file</span>
+<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
+<span class="hljs-keyword">import</span> Adapter <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme-adapter-react-16'</span>;
+
+configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// component file</span>
+<span class="hljs-keyword">const</span> PrimaryButton = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> &lt;button {...props} /&gt;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    render() {
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">PrimaryButton</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.onClick}</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"children"</span>&gt;</span>{this.props.children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+        );
+    }
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// test file</span>
+<span class="hljs-keyword">import</span> { expect}  <span class="hljs-keyword">from</span> <span class="hljs-string">'chai'</span>;
+<span class="hljs-keyword">import</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="hljs-keyword">import</span> { shallow } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
+
+describe(<span class="hljs-string">'&lt;Header /&gt;'</span>, () =&gt; {
+  it(<span class="hljs-string">'should render PrimaryButton'</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> wrapper = shallow(&lt;Header /&gt;);
+    // find by type
+    expect(wrapper.find(PrimaryButton)).to.have.length(1);
+  });
+
+  it('should render an h1', () =&gt; {
+    const wrapper = shallow(&lt;Header /&gt;);
+    // find by selector
+    expect(wrapper.find('.children')).to.have.length(1);
+  });
+
+  it('should render children when passed in', () =&gt; {
+    const wrapper = shallow((
+      &lt;Header&gt;
+        &lt;div className="unique" /&gt;
+      &lt;/Header&gt;
+    ));
+    expect(wrapper.contains(&lt;div className="unique" /&gt;)).to.equal(true);
+  });
+
+  it('simulates click events', () =&gt; {
+    const onButtonClick = sinon.spy();
+    const wrapper = shallow(&lt;Header onClick={onButtonClick} /&gt;);
+    wrapper.find('button').simulate('click');
+    expect(onButtonClick.calledOnce).to.equal(true);
+  });
+});
+</code></pre>
 </section>
   </div>
-  <div class="slide hidden author-slide" id="slide-30">
+  <div class="slide hidden author-slide" id="slide-31">
     <section class="slide-content"><div class="author">
   <h1 class="name">Pawel Wieladek</h1>
     <h3 class="twitter">
