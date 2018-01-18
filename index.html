@@ -440,6 +440,13 @@ pre > code {
     color: inherit;
 }
 
+.task {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 4px solid #000;
+  font-weight: bold;
+}
+
 /**
  * GitHub Gist Theme
  * Author : Louis Barranqueiro - https://github.com/LouisBarranqueiro
@@ -1085,7 +1092,15 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
 </section>
   </div>
   <div class="slide hidden -" id="slide-32">
-    <section class="slide-content"><h3 id="props">Props</h3>
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Using <code>ReactDOM.render</code> and JSX syntax write your own HTML structure.</p>
+<p>Make use of multiple attribute types (string, number, function, boolean) and nested children.</p>
+<p>How would it look like using only <code>React.createElement</code>?</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-33">
+    <section class="slide-content"><h3 id="component-and-props">Component and props</h3>
 <p><code>props</code> are <strong>read-only input data</strong>.</p>
 <h4 id="component-as-a-class">Component as a class</h4>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -1101,14 +1116,21 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-33">
-    <section class="slide-content"><h3 id="props">Props</h3>
+  <div class="slide hidden -" id="slide-34">
+    <section class="slide-content"><h3 id="component-and-props">Component and props</h3>
 <h4 id="extraction">Extraction</h4>
 <p>Split large piece of functionality into smaller components.</p>
 <p><img src="images/components-layout.svg" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-34">
+  <div class="slide hidden -" id="slide-35">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Use your JSX structure to create components and give them props.</p>
+<p>Extract bigger bunches of code to separate functional components.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-36">
     <section class="slide-content"><h3 id="state">State</h3>
 <p>Component must act like a <strong>pure function</strong>.</p>
 <p>UI is dynamic and <strong>changes over time</strong>.</p>
@@ -1116,7 +1138,7 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
 <p>Component <strong>change state only by</strong> <code>setState()</code> function</p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-35">
+  <div class="slide hidden -" id="slide-37">
     <section class="slide-content"><h3 id="state">State</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1142,14 +1164,14 @@ const foo2 = &lt;Component title={title} onClick={onClick} /&gt;
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-36">
+  <div class="slide hidden -" id="slide-38">
     <section class="slide-content"><h3 id="state">State</h3>
 <h4 id="binding">Binding</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">this</span>.increment = <span class="hljs-keyword">this</span>.increment.bind(<span class="hljs-keyword">this</span>);
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-37">
+  <div class="slide hidden -" id="slide-39">
     <section class="slide-content"><h3 id="state">State</h3>
 <h4 id="the-smallest-representaion-possible">The smallest representaion possible</h4>
 <pre><code class="lang-js"><span class="hljs-comment">// bad practice</span>
@@ -1169,7 +1191,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-38">
+  <div class="slide hidden -" id="slide-40">
     <section class="slide-content"><h3 id="events">Events</h3>
 <p><code>SyntheticEvent</code> for cross-browser compatibility.</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -1195,7 +1217,15 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden - " id="slide-39">
+  <div class="slide hidden -" id="slide-41">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Give some of your components their own state.</p>
+<p>Make them interactive by passing event handlers down to the children.</p>
+<p>Remeber about <code>setState()</code> and context binding.</p>
+</section>
+  </div>
+  <div class="slide hidden - " id="slide-42">
     <section class="slide-content"><h3 id="data-flow">Data flow</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1242,24 +1272,32 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-40">
+  <div class="slide hidden -" id="slide-43">
     <section class="slide-content"><h3 id="data-flow">Data flow</h3>
 <p><img src="images/data-flow.svg" width="600" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-41">
+  <div class="slide hidden -" id="slide-44">
     <section class="slide-content"><h3 id="data-flow">Data flow</h3>
 <p><img src="images/top-down.svg" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-42">
+  <div class="slide hidden -" id="slide-45">
     <section class="slide-content"><h3 id="virtual-dom">Virtual DOM</h3>
 <p>Instead of manipulating DOM tree, React implements it&#39;s own <strong>tree of components</strong></p>
 <p>React compares two component trees, finds changes and apply them on the DOM.</p>
 <p><img src="images/virtual-dom.svg" width="600" /></p>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-43">
+  <div class="slide hidden -" id="slide-46">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Lift the state up to the highest component.</p>
+<p>Make the child components pure functions.</p>
+<p>Investigate Elemenets tab in Dev Tools to see which actual DOM nodes are being changed.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-47">
     <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1284,7 +1322,7 @@ render() {
 </blockquote>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-44">
+  <div class="slide hidden -" id="slide-48">
     <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
 <h4 id="mounting">Mounting</h4>
 <ol>
@@ -1295,7 +1333,7 @@ render() {
 </ol>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-45">
+  <div class="slide hidden -" id="slide-49">
     <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
 <h4 id="updating">Updating</h4>
 <ol>
@@ -1307,7 +1345,7 @@ render() {
 </ol>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-46">
+  <div class="slide hidden -" id="slide-50">
     <section class="slide-content"><h3 id="lifecycle">Lifecycle</h3>
 <h4 id="unmounting">Unmounting</h4>
 <ol>
@@ -1315,7 +1353,14 @@ render() {
 </ol>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-47">
+  <div class="slide hidden -" id="slide-51">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Add lifecycle hooks to some of your components.</p>
+<p>Try <code>shouldComponentUpdate()</code> based on given props.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-52">
     <section class="slide-content"><h3 id="conditional-rendering">Conditional Rendering</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">constructor</span>(props) {
@@ -1351,7 +1396,13 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-48">
+  <div class="slide hidden -" id="slide-53">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Apply conditional rendering one of your components.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-54">
     <section class="slide-content"><h3 id="lists">Lists</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -1367,7 +1418,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-49">
+  <div class="slide hidden -" id="slide-55">
     <section class="slide-content"><h3 id="lists">Lists</h3>
 <h4 id="keys">Keys</h4>
 <p>Keys help React identify which items have changed.</p>
@@ -1381,7 +1432,14 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-50">
+  <div class="slide hidden -" id="slide-56">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Create <code>Nav</code> component which renders <code>NavItems</code> list.</p>
+<p>Remember about proper keys.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-57">
     <section class="slide-content"><h3 id="composition">Composition</h3>
 <p>Example 1</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -1407,7 +1465,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-51">
+  <div class="slide hidden -" id="slide-58">
     <section class="slide-content"><h3 id="composition">Composition</h3>
 <p>Example 2</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -1430,7 +1488,13 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-52">
+  <div class="slide hidden -" id="slide-59">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Create <code>Image</code> component and <code>ThumbnailImage</code> which makes it more specific.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-60">
     <section class="slide-content"><h3 id="prop-types">Prop Types</h3>
 <p>Define component&#39;s API and validate input data.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
@@ -1459,7 +1523,14 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-53">
+  <div class="slide hidden -" id="slide-61">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Validate your components with <code>PropTypes</code>.</p>
+<p>Get help from <a href="https://reactjs.org/docs/typechecking-with-proptypes.html">documentation</a>.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-62">
     <section class="slide-content"><h3 id="refs">Refs</h3>
 <p>Typically to modify a child, you <strong>re-render it with new props</strong>. </p>
 <p><strong>refs</strong> gives an access to a DOM node.</p>
@@ -1479,7 +1550,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-54">
+  <div class="slide hidden -" id="slide-63">
     <section class="slide-content"><h3 id="style-and-classes">Style and classes</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Header</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -1496,7 +1567,14 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-55">
+  <div class="slide hidden -" id="slide-64">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p><a href="https://github.com/JedWatson/classnames">Install</a> <code>classNames</code> package and try some functionality.</p>
+<p>Give one of your components some inline styles.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-65">
     <section class="slide-content"><h3 id="fragments">Fragments</h3>
 <p>A common pattern in React is for a component to <strong>return multiple elements</strong>.</p>
 <p>Fragments let you <strong>group a list of children without adding extra nodes</strong> to the DOM.</p>
@@ -1515,7 +1593,13 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-56">
+  <div class="slide hidden -" id="slide-66">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Implement table using <code>React.Fragment</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-67">
     <section class="slide-content"><h3 id="context">Context</h3>
 <p>Context lets the data pass through the component tree <strong>implicitly</strong></p>
 <h4 id="passing-data-without-context">Passing data without context</h4>
@@ -1555,7 +1639,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-57">
+  <div class="slide hidden -" id="slide-68">
     <section class="slide-content"><h3 id="context">Context</h3>
 <h4 id="passing-data-with-context">Passing data with context</h4>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -1606,14 +1690,21 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-58">
+  <div class="slide hidden -" id="slide-69">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Define <code>styles.js</code> which exports inline styles and pass it as a context from the top-most component.</p>
+<p>Use context styles in your components.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-70">
     <section class="slide-content"><h3 id="higher-order-components">Higher-Order Components</h3>
 <p>Higher-order component is a &amp;&amp;function that takes a component and returns a <strong>new component</strong>.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> EnhancedComponent = higherOrderComponent(WrappedComponent);
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-59">
+  <div class="slide hidden -" id="slide-71">
     <section class="slide-content"><h3 id="higher-order-components">Higher-Order Components</h3>
 <h4 id="definition">Definition</h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withLoader</span>(<span class="hljs-params">WrappedComponent</span>) </span>{
@@ -1636,7 +1727,7 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-60">
+  <div class="slide hidden -" id="slide-72">
     <section class="slide-content"><h3 id="higher-order-components">Higher-Order Components</h3>
 <h4 id="usage">Usage</h4>
 <pre><code class="lang-js">@withLoader
@@ -1661,7 +1752,14 @@ render() {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-61">
+  <div class="slide hidden -" id="slide-73">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Implement <code>withErrors</code> decorator.</p>
+<p>When <code>errors</code> prop is present render error component instead of default render logic.</p>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-74">
     <section class="slide-content"><h3 id="testing">Testing</h3>
 <p>Airbnb Enzyme - testing utility for React</p>
 <pre><code class="lang-js"><span class="hljs-comment">// setup file</span>
@@ -1672,7 +1770,7 @@ configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">n
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-62">
+  <div class="slide hidden -" id="slide-75">
     <section class="slide-content"><h3 id="testing">Testing</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// component file</span>
 <span class="hljs-keyword">const</span> PrimaryButton = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> &lt;button {...props} /&gt;
@@ -1691,7 +1789,7 @@ configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">n
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden -" id="slide-63">
+  <div class="slide hidden -" id="slide-76">
     <section class="slide-content"><h3 id="testing">Testing</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// test file</span>
 <span class="hljs-keyword">import</span> { expect}  <span class="hljs-keyword">from</span> <span class="hljs-string">'chai'</span>;
@@ -1730,7 +1828,14 @@ describe(<span class="hljs-string">'&lt;Header /&gt;'</span>, () =&gt; {
 </code></pre>
 </section>
   </div>
-  <div class="slide hidden author-slide" id="slide-64">
+  <div class="slide hidden -" id="slide-77">
+    <section class="slide-content"><p class="task">Task</p>
+
+<p>Test component&#39;s behaviour on given props.</p>
+<p>Simulate click or value change.</p>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-78">
     <section class="slide-content"><div class="author">
   <h1 class="name">Pawel Wieladek</h1>
     <h3 class="twitter">
